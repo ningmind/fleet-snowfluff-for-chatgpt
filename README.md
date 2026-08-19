@@ -2,7 +2,9 @@
 
 为 macOS 版 ChatGPT Desktop 添加高清壁纸、Light/Dark 毛玻璃界面和可交互像素桌宠。
 
-<!-- Preview image placeholder: add docs/images/preview.png here before release. -->
+<img width="1470" height="845" alt="image" src="https://github.com/user-attachments/assets/2bec8fc6-5a88-4d37-b58b-84fe86e75b3a" />
+
+<img width="1470" height="845" alt="image" src="https://github.com/user-attachments/assets/438d8a94-c80b-403a-ab76-98557d4a11bc" />
 
 > **非官方项目。** 本项目不隶属于 OpenAI，也不是 ChatGPT 插件。它通过仅监听本机的 Electron DevTools 接口在运行时注入样式，不修改 `ChatGPT.app`、`app.asar` 或应用签名。
 
