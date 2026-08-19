@@ -1,0 +1,299 @@
+/* ChatGPT / Codex Desktop glass theme. */
+
+:root {
+  --codex-wallpaper-dim-light: rgba(238, 243, 255, 0.08);
+  --codex-wallpaper-dim-dark: rgba(5, 8, 22, 0.18);
+  --codex-glass-light: rgba(250, 248, 255, 0.54);
+  --codex-glass-light-soft: rgba(244, 246, 255, 0.42);
+  --codex-glass-light-strong: rgba(255, 255, 255, 0.72);
+  --codex-glass-dark: rgba(13, 18, 42, 0.58);
+  --codex-glass-dark-soft: rgba(20, 28, 60, 0.46);
+  --codex-glass-dark-strong: rgba(17, 24, 52, 0.76);
+  --codex-glass-border-light: rgba(53, 101, 165, 0.18);
+  --codex-glass-border-dark: rgba(149, 211, 255, 0.20);
+  --codex-glass-blur: 16px;
+}
+
+html {
+  background-color: #10172f !important;
+  background-image:
+    linear-gradient(var(--codex-wallpaper-dim-light), var(--codex-wallpaper-dim-light)),
+    url("__CODEX_WALLPAPER_DATA_URL__") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+}
+
+html.electron-dark,
+html:has(.electron-dark) {
+  background-image:
+    linear-gradient(var(--codex-wallpaper-dim-dark), var(--codex-wallpaper-dim-dark)),
+    url("__CODEX_WALLPAPER_DATA_URL__") !important;
+}
+
+body,
+#root,
+#root > div {
+  background: transparent !important;
+}
+
+/* Light appearance: pearl glass with dark, readable foreground colors. */
+.electron-light {
+  color-scheme: light;
+  --color-background-surface: var(--codex-glass-light);
+  --color-background-surface-under: var(--codex-glass-light-soft);
+  --color-background-editor-opaque: var(--codex-glass-light-soft);
+  --color-background-elevated-primary: var(--codex-glass-light-strong);
+  --color-background-elevated-primary-opaque: rgba(255, 255, 255, 0.82);
+  --color-background-elevated-secondary: rgba(255, 255, 255, 0.28);
+  --color-background-elevated-secondary-opaque: rgba(250, 248, 255, 0.76);
+  --color-background-application-menu: rgba(250, 248, 255, 0.78);
+  --vscode-sideBar-background: rgba(237, 241, 255, 0.52);
+  --vscode-editor-background: rgba(255, 255, 255, 0.38);
+  --vscode-menu-background: rgba(250, 248, 255, 0.84);
+  --vscode-dropdown-background: rgba(250, 248, 255, 0.78);
+  --vscode-input-background: rgba(255, 255, 255, 0.60);
+  --vscode-foreground: #18213b;
+  --vscode-editor-foreground: #18213b;
+  --vscode-descriptionForeground: #53617d;
+  --color-text-foreground: #18213b;
+  --color-text-foreground-secondary: #465570;
+  --color-text-foreground-tertiary: #64718b;
+  --color-border-light: var(--codex-glass-border-light);
+  --color-border-heavy: rgba(53, 101, 165, 0.28);
+}
+
+/* Dark appearance: deep-space glass with light foreground colors. */
+.electron-dark {
+  color-scheme: dark;
+  --color-background-surface: var(--codex-glass-dark);
+  --color-background-surface-under: rgba(7, 11, 28, 0.52);
+  --color-background-editor-opaque: var(--codex-glass-dark-soft);
+  --color-background-elevated-primary: var(--codex-glass-dark-strong);
+  --color-background-elevated-primary-opaque: rgba(17, 24, 52, 0.88);
+  --color-background-elevated-secondary: rgba(125, 180, 255, 0.08);
+  --color-background-elevated-secondary-opaque: rgba(25, 34, 70, 0.82);
+  --color-background-application-menu: rgba(17, 24, 52, 0.86);
+  --vscode-sideBar-background: rgba(10, 15, 37, 0.62);
+  --vscode-editor-background: rgba(14, 20, 46, 0.48);
+  --vscode-menu-background: rgba(17, 24, 52, 0.88);
+  --vscode-dropdown-background: rgba(20, 28, 60, 0.84);
+  --vscode-input-background: rgba(17, 24, 52, 0.64);
+  --vscode-foreground: #edf4ff;
+  --vscode-editor-foreground: #edf4ff;
+  --vscode-descriptionForeground: #aebdd8;
+  --color-text-foreground: #edf4ff;
+  --color-text-foreground-secondary: #c4d0e6;
+  --color-text-foreground-tertiary: #9cabc6;
+  --color-border-light: var(--codex-glass-border-dark);
+  --color-border-heavy: rgba(149, 211, 255, 0.32);
+}
+
+/* Rebind aliases that the application defines on its theme root. */
+.electron-light,
+.electron-dark {
+  --color-surface: var(--color-background-surface);
+  --color-surface-secondary: var(--vscode-sideBar-background);
+  --color-surface-tertiary: var(--vscode-editor-background);
+  --color-surface-elevated: var(--vscode-menu-background);
+  --color-surface-elevated-secondary: var(--vscode-dropdown-background);
+  --color-background-primary-soft: var(--vscode-input-background);
+  --color-token-side-bar-background: var(--vscode-sideBar-background);
+  --color-token-bg-primary: var(--vscode-sideBar-background);
+  --color-token-bg-secondary: color-mix(in srgb, var(--vscode-sideBar-background) 88%, transparent);
+  --color-token-bg-tertiary: color-mix(in srgb, var(--vscode-sideBar-background) 76%, transparent);
+  --color-token-main-surface-primary: var(--color-background-surface);
+  --color-token-foreground: var(--vscode-foreground);
+  --color-token-text-primary: var(--vscode-foreground);
+  --color-token-text-secondary: color-mix(in srgb, var(--vscode-foreground) 68%, transparent);
+  --color-token-text-tertiary: var(--vscode-descriptionForeground);
+}
+
+/* Principal application surfaces. */
+.bg-token-main-surface-primary,
+.bg-token-bg-primary,
+.bg-token-bg-secondary,
+.bg-token-bg-tertiary,
+.bg-surface,
+.bg-surface-secondary,
+.bg-surface-tertiary {
+  background-color: transparent !important;
+}
+
+/* The conversation/inspector workspace is painted by a CSS Module rather than
+   the shared color tokens above. Its generated suffix changes between builds,
+   so match only the stable component-name prefix. */
+.electron-light main[class*="_MainContentSurface_"] {
+  background-color: rgba(250, 248, 255, 0.75) !important;
+  border-left-color: rgba(53, 101, 165, 0.02) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.electron-dark main[class*="_MainContentSurface_"] {
+  background-color: rgba(7, 11, 28, 0.70) !important;
+  border-left-color: rgba(149, 211, 255, 0.02) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Floating UI stays slightly stronger for legibility. */
+aside,
+nav,
+header,
+[role="dialog"],
+[role="menu"],
+[data-radix-popper-content-wrapper] > div {
+  border-color: var(--color-border-light) !important;
+  backdrop-filter: blur(var(--codex-glass-blur)) saturate(125%);
+  -webkit-backdrop-filter: blur(var(--codex-glass-blur)) saturate(125%);
+}
+
+/* The sidebar contains a nested nav. Painting both layers stacks their alpha
+   and leaves a visibly lighter band beside the resize hit area. Paint one
+   equivalent glass layer on the outer panel and keep the inner nav clear. */
+.electron-light aside {
+  background-color: rgba(237, 241, 255, 0.40) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow:
+    rgba(255, 255, 255, 0.42) 0 0 0 0.5px,
+    rgba(20, 35, 65, 0.06) 0 3px 10px,
+    rgba(20, 35, 65, 0.05) 0 0 20px !important;
+}
+
+.electron-dark aside {
+  background-color: oklab(0.219544 0.000677 -0.055547 / 0.40) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow:
+    rgba(255, 255, 255, 0.14) 0 0 0 0.5px,
+    rgba(0, 0, 0, 0.04) 0 3px 7.5px,
+    rgba(0, 0, 0, 0.05) 0 0 20px,
+    rgb(24, 24, 24) 0 0 0 0.5px !important;
+}
+
+aside nav {
+  background-color: transparent !important;
+}
+
+/* The pinned-summary control starts as a flat 5% white overlay. Give it the
+   same restrained glass vocabulary as the composer without making it heavy. */
+.electron-light button[aria-label="Toggle pinned summary"] {
+  background-color: rgba(237, 241, 255, 0.46) !important;
+  border-color: rgba(53, 101, 165, 0.10) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow:
+    rgba(255, 255, 255, 0.42) 0 0 0 0.5px,
+    rgba(20, 35, 65, 0.08) 0 3px 10px !important;
+}
+
+.electron-dark button[aria-label="Toggle pinned summary"] {
+  background-color: oklab(0.219544 0.000677 -0.055547 / 0.48) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow:
+    rgba(255, 255, 255, 0.14) 0 0 0 0.5px,
+    rgba(0, 0, 0, 0.05) 0 3px 7.5px,
+    rgba(0, 0, 0, 0.05) 0 0 16px !important;
+}
+
+/* The stock light composer is 54% pure white. Over the 75% light main surface
+   that composites to an almost solid white block with a conspicuous right edge. */
+.electron-light [class*="_ComposerLayoutRoot_"] {
+  background-color: rgba(244, 247, 255, 0.12) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  box-shadow:
+    rgba(53, 101, 165, 0.13) 0 0 0 0.5px,
+    rgba(20, 35, 65, 0.05) 0 3px 8px,
+    rgba(20, 35, 65, 0.04) 0 0 18px !important;
+  opacity: 1 !important;
+}
+
+/* Codex adds solid surface-to-transparent fades behind and above the composer.
+   In light mode their pure-white endpoint makes a hard vertical seam where the
+   thread footer ends. The themed main surface already provides contrast. */
+.electron-light [data-thread-scroll-footer="true"] {
+  opacity: 1 !important;
+}
+
+.electron-light [data-thread-scroll-footer="true"] .bg-gradient-to-t {
+  background-image: none !important;
+}
+
+/* Keep the generous resize hit target, but make its visible guide very quiet. */
+.sidebar-resize-handle-line {
+  opacity: 0 !important;
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, currentColor 14%, transparent),
+    transparent
+  ) !important;
+}
+
+/* Electron reserves a scrollbar gutter on both sides of the thread. The left
+   gutter exposes a conspicuous wallpaper strip beside the navigation panel. */
+.electron-light .thread-scroll-container {
+  scrollbar-gutter: auto !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: transparent transparent !important;
+}
+
+.electron-light .thread-scroll-container::-webkit-scrollbar {
+  width: 3px !important;
+  height: 3px !important;
+}
+
+.electron-light .thread-scroll-container::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.electron-light .thread-scroll-container::-webkit-scrollbar-thumb {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+}
+
+.electron-light .thread-scroll-container:hover::-webkit-scrollbar-thumb {
+  background: rgba(74, 91, 126, 0.12) !important;
+}
+
+/* The wallpaper has a vertical glitch block exactly beside the current sidebar
+   width. Feather that small area into the main glass instead of moving the art. */
+.electron-light main[class*="_MainContentSurface_"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 auto 0 0 !important;
+  width: 40px !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.72) 55%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.72) 55%, transparent 100%) !important;
+}
+
+[class*="cursor-col-resize"]:hover .sidebar-resize-handle-line,
+[class*="cursor-col-resize"]:active .sidebar-resize-handle-line,
+[class*="cursor-col-resize"]:focus-visible .sidebar-resize-handle-line {
+  opacity: 0.10 !important;
+}
+
+[role="dialog"],
+[role="menu"],
+[data-radix-popper-content-wrapper] > div {
+  background-color: var(--color-background-elevated-primary) !important;
+}
+
+::selection {
+  background: rgba(100, 168, 255, 0.34);
+}
+
+* {
+  scrollbar-color: rgba(143, 193, 255, 0.42) transparent;
+}

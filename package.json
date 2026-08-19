@@ -1,0 +1,30 @@
+{
+  "name": "fleet-snowfluff-for-chatgpt",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Glass wallpaper theme and pixel desktop companion for ChatGPT Desktop on macOS.",
+  "type": "module",
+  "scripts": {
+    "start": "./start.command",
+    "check": "node --check src/injector.mjs && node --check src/pet.js && node --check scripts/diagnose.mjs && node --check scripts/capture-page.mjs && node --check scripts/inspect-split.mjs && node --check scripts/test-pet-events.mjs",
+    "diagnose": "node scripts/diagnose.mjs",
+    "test:pet": "node scripts/test-pet-events.mjs 8000",
+    "capture": "node scripts/capture-page.mjs",
+    "repack:sprites": "python3 scripts/repack-sprites.py"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "keywords": [
+    "chatgpt",
+    "chatgpt-desktop",
+    "macos",
+    "electron",
+    "theme",
+    "wallpaper",
+    "glassmorphism",
+    "desktop-pet"
+  ]
+}
+

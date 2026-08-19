@@ -1,0 +1,138 @@
+#codex-aemeath-pet {
+  position: fixed;
+  z-index: 2147483000;
+  pointer-events: none;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  touch-action: none;
+}
+
+#codex-aemeath-pet .codex-pet-sprite {
+  width: 144px;
+  height: 156px;
+  pointer-events: auto;
+  cursor: grab;
+  background-repeat: no-repeat;
+  background-size: 1152px 2340px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 5px 10px rgba(244, 114, 182, 0.38));
+  transition: filter 180ms ease, opacity 120ms ease;
+}
+
+#codex-aemeath-pet .codex-pet-sprite:hover {
+  filter: drop-shadow(0 6px 13px rgba(244, 114, 182, 0.52));
+}
+
+#codex-aemeath-pet .codex-pet-sprite.is-dragging {
+  cursor: grabbing;
+  opacity: 0.86;
+}
+
+#codex-aemeath-pet .codex-pet-bubble,
+#codex-aemeath-pet .codex-pet-menu {
+  position: absolute;
+  left: 50%;
+  bottom: 164px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  color: #eef4ff;
+  background: rgba(17, 24, 52, 0.78);
+  border: 1px solid rgba(149, 211, 255, 0.30);
+  box-shadow: rgba(255, 255, 255, 0.12) 0 0 0 0.5px, rgba(0, 0, 0, 0.30) 0 8px 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: codex-pet-pop 180ms ease;
+}
+
+#codex-aemeath-pet .codex-pet-bubble {
+  max-width: 250px;
+  padding: 8px 13px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+#codex-aemeath-pet .codex-pet-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: rgba(17, 24, 52, 0.78);
+}
+
+#codex-aemeath-pet .codex-pet-menu {
+  min-width: 164px;
+  padding: 6px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#codex-aemeath-pet .codex-pet-menu button {
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 9px;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#codex-aemeath-pet .codex-pet-menu button:hover {
+  background: rgba(125, 211, 252, 0.18);
+}
+
+#codex-aemeath-pet .codex-pet-summon {
+  width: 44px;
+  height: 44px;
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(149, 211, 255, 0.34);
+  border-radius: 50%;
+  color: #d8ecff;
+  background: rgba(17, 24, 52, 0.72);
+  box-shadow: rgba(255, 255, 255, 0.12) 0 0 0 0.5px, rgba(0, 0, 0, 0.28) 0 6px 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-size: 20px;
+  cursor: pointer;
+  animation: codex-pet-summon-pop 180ms ease;
+}
+
+.electron-light #codex-aemeath-pet .codex-pet-bubble,
+.electron-light #codex-aemeath-pet .codex-pet-menu {
+  color: #18213b;
+  background: rgba(237, 241, 255, 0.72);
+  border-color: rgba(53, 101, 165, 0.18);
+}
+
+.electron-light #codex-aemeath-pet .codex-pet-sprite {
+  filter: drop-shadow(0 3px 6px rgba(116, 88, 150, 0.18));
+}
+
+.electron-light #codex-aemeath-pet .codex-pet-sprite:hover {
+  filter: drop-shadow(0 4px 8px rgba(116, 88, 150, 0.24));
+}
+
+.electron-light #codex-aemeath-pet .codex-pet-bubble::after {
+  border-top-color: rgba(237, 241, 255, 0.72);
+}
+
+@keyframes codex-pet-pop {
+  from { opacity: 0; transform: translateX(-50%) scale(0.86); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes codex-pet-summon-pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
