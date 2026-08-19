@@ -2,10 +2,12 @@
   "name": "fleet-snowfluff-for-chatgpt",
   "version": "0.1.0",
   "private": true,
-  "description": "Glass wallpaper theme and pixel desktop companion for ChatGPT Desktop on macOS.",
+  "description": "Glass wallpaper theme and pixel desktop companion for ChatGPT Desktop on macOS and Windows.",
   "type": "module",
   "scripts": {
     "start": "./start.command",
+    "start:macos": "./start.command",
+    "start:windows": "powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File ./start-windows.ps1",
     "check": "node --check src/injector.mjs && node --check src/pet.js && node --check scripts/diagnose.mjs && node --check scripts/capture-page.mjs && node --check scripts/inspect-split.mjs && node --check scripts/test-pet-events.mjs",
     "diagnose": "node scripts/diagnose.mjs",
     "test:pet": "node scripts/test-pet-events.mjs 8000",
@@ -20,6 +22,7 @@
     "chatgpt",
     "chatgpt-desktop",
     "macos",
+    "windows",
     "electron",
     "theme",
     "wallpaper",
@@ -27,4 +30,3 @@
     "desktop-pet"
   ]
 }
-

@@ -1,6 +1,6 @@
 # Fleet Snowfluff for ChatGPT
 
-为 macOS 版 ChatGPT Desktop 添加高清壁纸、Light/Dark 毛玻璃界面和可交互像素桌宠。
+为 macOS 和 Windows 版 ChatGPT Desktop 添加高清壁纸、Light/Dark 毛玻璃界面和可交互像素桌宠。
 
 <!-- Preview image placeholder: add docs/images/preview.png here before release. -->
 
@@ -29,14 +29,14 @@
 
 ## 系统要求
 
-- macOS
-- ChatGPT 安装在 `/Applications/ChatGPT.app`
+- macOS，ChatGPT 安装在 `/Applications/ChatGPT.app`；或
+- Windows 10/11，安装官方 Microsoft Store 版 ChatGPT
 - Node.js 22 或更高版本
 - 本机端口 `9229` 可用；可通过 `CHATGPT_THEME_PORT` 更改
 
-这是针对当前 macOS ChatGPT Desktop DOM 结构实现的实验性主题。应用更新可能改变类名或组件结构，需要同步调整 `src/theme.css`。
+这是针对当前 ChatGPT Desktop DOM 结构实现的实验性主题。应用更新可能改变类名或组件结构，需要同步调整 `src/theme.css`。Windows 启动器目前属于实验支持：主题代码与 macOS 相同，但 Microsoft Store/MSIX 版本是否接受 Electron 启动参数，需要在对应 ChatGPT 版本上验证。
 
-## 安装与启动
+## macOS 安装与启动
 
 ```bash
 git clone https://github.com/ningmind/fleet-snowfluff-for-chatgpt.git
@@ -48,6 +48,35 @@ chmod +x ./start.command
 启动前请用 **Cmd+Q** 完全退出已运行的 ChatGPT。主题会话需要保留终端窗口；关闭 ChatGPT 或按 `Ctrl+C` 会停止注入器。
 
 也可以在 Finder 中双击 `start.command`。如果 macOS 首次阻止运行，请在“系统设置 → 隐私与安全性”中确认，或在终端执行上面的命令。
+
+## Windows 安装与启动（实验支持）
+
+1. 从 Microsoft Store 安装官方 ChatGPT，并安装 Node.js 22 或更高版本。
+2. 下载或克隆本仓库。
+3. 完全退出 ChatGPT，包括系统托盘中的后台进程。
+4. 双击 `start-windows.cmd`。
+
+也可以在 PowerShell 中启动：
+
+```powershell
+git clone https://github.com/ningmind/fleet-snowfluff-for-chatgpt.git
+cd fleet-snowfluff-for-chatgpt
+.\start-windows.ps1
+```
+
+启动器会从当前用户的 MSIX 清单自动解析 ChatGPT 可执行文件，无需管理员权限。若自动识别失败，可显式指定：
+
+```powershell
+.\start-windows.ps1 -ChatGPTExe "C:\path\to\ChatGPT.exe"
+```
+
+只检查环境而不启动 ChatGPT：
+
+```powershell
+.\start-windows.ps1 -DiagnoseOnly
+```
+
+如果 Store 版本打开后提示没有主题端口，说明该版本可能阻止直接传入 Electron 参数。此时不要修改或重新签名 MSIX；请提交诊断输出、Windows 版本和 ChatGPT 版本，以便针对该版本补充兼容启动方式。
 
 ## 更换壁纸
 
@@ -107,6 +136,8 @@ fleet-snowfluff-for-chatgpt/
 │   ├── pet.js              # 桌宠状态机与交互
 │   └── pet.css             # 桌宠界面样式
 ├── start.command           # macOS 启动器
+├── start-windows.cmd       # Windows 双击入口
+├── start-windows.ps1       # Windows MSIX 检测与启动器
 └── package.json
 ```
 
@@ -130,11 +161,11 @@ node scripts/test-pet-events.mjs 3000 waiting
 
 ### 提示 ChatGPT 已经运行
 
-关闭窗口不等于退出应用。请按 **Cmd+Q**，然后重新运行 `start.command`。
+关闭窗口不等于退出应用。macOS 请按 **Cmd+Q**；Windows 请从系统托盘退出，必要时在任务管理器结束 ChatGPT。然后重新运行对应启动器。
 
 ### 重启后主题消失
 
-这是预期行为。主题不会修改官方应用，必须通过 `start.command` 启动主题会话。普通方式启动 ChatGPT 会显示官方界面。
+这是预期行为。主题不会修改官方应用，必须通过 `start.command`（macOS）或 `start-windows.cmd`（Windows）启动主题会话。普通方式启动 ChatGPT 会显示官方界面。
 
 ### 桌宠或部分玻璃区域消失
 
