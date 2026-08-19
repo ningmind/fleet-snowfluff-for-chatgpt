@@ -131,6 +131,15 @@ body,
   -webkit-backdrop-filter: none !important;
 }
 
+/* The app toggles a 16px pure-white top fade as the main viewport scrolls.
+   It becomes a hard white strip over the light wallpaper, so keep this edge
+   seamless and let the existing 75% main-surface wash provide contrast. */
+.electron-light [class*="_MainContentTopFade_"] {
+  background: transparent !important;
+  background-image: none !important;
+  opacity: 0 !important;
+}
+
 .electron-dark main[class*="_MainContentSurface_"] {
   background-color: rgba(7, 11, 28, 0.70) !important;
   border-left-color: rgba(149, 211, 255, 0.02) !important;
