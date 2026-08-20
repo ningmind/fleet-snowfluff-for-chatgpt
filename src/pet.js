@@ -140,6 +140,8 @@
   let menuOpen = false
   let notebookOpen = false
   let editingTaskId = ''
+  let newTaskDraft = ''
+  let editingTaskDraft = ''
   let overrideUntil = 0
   let lastBusy = false
   let idleTimer = 0
@@ -158,8 +160,11 @@
   const setBubble = (text, duration = 0) => {
     bubble = text
     clearTimeout(bubbleTimer)
-    if (duration) bubbleTimer = setTimeout(() => { bubble = ''; render() }, duration)
-    render()
+    if (duration) bubbleTimer = setTimeout(() => {
+      bubble = ''
+      if (!notebookOpen) render()
+    }, duration)
+    if (!notebookOpen) render()
   }
   const setAnimation = (name) => {
     const next = FRAMES[name] ? name : 'idle'
@@ -223,6 +228,7 @@
     if (!task || !normalized) return false
     task.text = normalized
     editingTaskId = ''
+    editingTaskDraft = ''
     commitTaskChange()
     return true
   }
@@ -232,6 +238,7 @@
     task.done = !task.done
     task.completedAt = task.done ? new Date().toISOString() : ''
     saveTaskNotebook()
+    render()
     if (task.done && incompleteTaskCount() === 0) playTemporary('celebrating', '今天的任务都完成啦！', 2600)
     else if (task.done) playTemporary('jumping', '完成一项，真棒！', 1800)
     else playTemporary('waving', '已恢复这项任务～', 1600)
@@ -306,17 +313,17 @@
     else reactRandomly()
   }
 
-  const renderTaskNotebookPanel = () => {
+  const renderTaskNotebookPanel = (animate = false) => {
     ensureTodayTasks()
     const panel = document.createElement('section')
-    panel.className = 'codex-task-panel'
+    panel.className = `codex-task-panel${animate ? ' is-opening' : ''}`
     panel.setAttribute('aria-label', '雪绒任务簿')
 
     const header = document.createElement('div')
     header.className = 'codex-task-header'
     const heading = document.createElement('div')
     const title = document.createElement('strong')
-    title.textContent = '雪绒任务簿'
+    title.textContent = '雪绒任务簿 ❄️'
     const date = document.createElement('span')
     date.textContent = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric', weekday: 'short' })
       .format(new Date(`${taskDate}T12:00:00`))
@@ -336,13 +343,19 @@
     input.maxLength = 240
     input.placeholder = '速记一项今日任务…'
     input.setAttribute('aria-label', '新增今日任务')
+    input.value = newTaskDraft
+    input.addEventListener('input', () => { newTaskDraft = input.value })
     const add = document.createElement('button')
     add.type = 'submit'
     add.textContent = '添加'
     form.append(input, add)
     form.addEventListener('submit', (event) => {
       event.preventDefault()
-      if (addTask(input.value)) setTimeout(() => root.querySelector('.codex-task-add input')?.focus(), 0)
+      const value = input.value
+      newTaskDraft = ''
+      if (addTask(value)) {
+        setTimeout(() => root.querySelector('.codex-task-add input')?.focus(), 0)
+      } else newTaskDraft = value
     })
 
     const summary = document.createElement('div')
@@ -376,14 +389,15 @@
         const editInput = document.createElement('input')
         editInput.type = 'text'
         editInput.maxLength = 240
-        editInput.value = task.text
+        editInput.value = editingTaskDraft || task.text
+        editInput.addEventListener('input', () => { editingTaskDraft = editInput.value })
         const save = document.createElement('button')
         save.type = 'submit'
         save.textContent = '保存'
         const cancel = document.createElement('button')
         cancel.type = 'button'
         cancel.textContent = '取消'
-        cancel.addEventListener('click', () => { editingTaskId = ''; render() })
+        cancel.addEventListener('click', () => { editingTaskId = ''; editingTaskDraft = ''; render() })
         editForm.append(editInput, save, cancel)
         editForm.addEventListener('submit', (event) => { event.preventDefault(); updateTask(task.id, editInput.value) })
         row.appendChild(editForm)
@@ -399,7 +413,7 @@
         edit.type = 'button'
         edit.title = '编辑任务'
         edit.textContent = '✎'
-        edit.addEventListener('click', () => { editingTaskId = task.id; render() })
+        edit.addEventListener('click', () => { editingTaskId = task.id; editingTaskDraft = task.text; render() })
         const remove = document.createElement('button')
         remove.type = 'button'
         remove.title = '删除任务'
@@ -421,7 +435,9 @@
       taskNotebook.settings.carryIncomplete = carry.checked
       commitTaskChange()
     })
-    carryLabel.append(carry, document.createTextNode(' 自动结转未完成'))
+    const carryText = document.createElement('span')
+    carryText.textContent = '自动结转未完成'
+    carryLabel.append(carry, carryText)
     const clear = document.createElement('button')
     clear.type = 'button'
     clear.textContent = '清除已完成'
@@ -447,6 +463,7 @@
   }
 
   function render() {
+    const panelWasOpen = Boolean(root.querySelector('.codex-task-panel'))
     root.replaceChildren()
     root.dataset.animation = animation
     applyPosition()
@@ -490,7 +507,7 @@
       )
       root.appendChild(menu)
     }
-    if (notebookOpen) root.appendChild(renderTaskNotebookPanel())
+    if (notebookOpen) root.appendChild(renderTaskNotebookPanel(!panelWasOpen))
     const sprite = document.createElement('div')
     sprite.className = 'codex-pet-sprite'
     sprite.title = '左键互动或拖动；右键打开菜单'
@@ -643,7 +660,7 @@
   window.__codexSnowfluffExportTasks = () => cloneValue(taskNotebook)
   window.__codexSnowfluffTasks = {
     open: () => { notebookOpen = true; menuOpen = false; render(); return true },
-    close: () => { notebookOpen = false; editingTaskId = ''; render(); return true },
+    close: () => { notebookOpen = false; editingTaskId = ''; editingTaskDraft = ''; render(); return true },
     add: (text) => addTask(String(text || '')),
     update: (id, text) => updateTask(String(id || ''), String(text || '')),
     toggle: (id) => { toggleTask(String(id || '')); return true },
@@ -655,6 +672,7 @@
       ensureTodayTasks()
       writeStorage('task-notebook.v1', JSON.stringify(taskNotebook))
       editingTaskId = ''
+      editingTaskDraft = ''
       render()
       return cloneValue(taskNotebook)
     },

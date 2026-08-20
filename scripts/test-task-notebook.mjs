@@ -36,7 +36,15 @@ const response = await evaluate(`(() => {
     api.toggle(tasks[0].id);
     api.update(tasks[1].id, 'Fleet Snowfluff task edit passed');
     api.open();
-    const panel = document.querySelector('.codex-task-panel');
+    let panel = document.querySelector('.codex-task-panel');
+    const draftInput = panel?.querySelector('.codex-task-add input');
+    if (draftInput) {
+      draftInput.value = 'unsaved draft survives render';
+      draftInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    api.import(window.__codexSnowfluffExportTasks());
+    panel = document.querySelector('.codex-task-panel');
+    const closeButton = panel?.querySelector('.codex-task-icon-button');
     const interaction = {
       ok: !!panel && tasks.length === 2,
       heading: panel?.querySelector('.codex-task-header strong')?.textContent || '',
@@ -44,6 +52,9 @@ const response = await evaluate(`(() => {
       edited: [...panel?.querySelectorAll('.codex-task-text') || []]
         .some(element => element.textContent === 'Fleet Snowfluff task edit passed'),
       badge: document.querySelector('.codex-pet-task-badge')?.textContent || '',
+      draftPreserved: panel?.querySelector('.codex-task-add input')?.value === 'unsaved draft survives render',
+      closeButtonWidth: closeButton ? closeButton.getBoundingClientRect().width : 0,
+      repeatedOpeningAnimation: panel?.classList.contains('is-opening') || false,
     };
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -79,6 +90,7 @@ const response = await evaluate(`(() => {
 socket.close()
 const result = response.result?.result?.value
 console.log(JSON.stringify(result, null, 2))
-if (!result?.ok || result.heading !== '雪绒任务簿' || result.completedRows < 1 || !result.edited || result.rolloverCount !== 1) {
+if (!result?.ok || result.heading !== '雪绒任务簿 ❄️' || result.completedRows < 1 || !result.edited ||
+  !result.draftPreserved || result.closeButtonWidth < 34 || result.repeatedOpeningAnimation || result.rolloverCount !== 1) {
   process.exitCode = 1
 }

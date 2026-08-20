@@ -108,6 +108,9 @@
   box-shadow: rgba(255, 255, 255, 0.10) 0 0 0 0.5px, rgba(0, 0, 0, 0.34) 0 12px 34px;
   backdrop-filter: blur(18px) saturate(125%);
   -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+
+#codex-aemeath-pet .codex-task-panel.is-opening {
   animation: codex-task-panel-pop 180ms ease;
 }
 
@@ -158,6 +161,14 @@
 #codex-aemeath-pet .codex-task-icon-button:hover,
 #codex-aemeath-pet .codex-task-actions button:hover {
   background: rgba(125, 211, 252, 0.16);
+}
+
+#codex-aemeath-pet .codex-task-header .codex-task-icon-button {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 24px;
+  line-height: 1;
 }
 
 #codex-aemeath-pet .codex-task-add,
@@ -282,6 +293,7 @@
 #codex-aemeath-pet .codex-task-controls label {
   display: flex;
   align-items: center;
+  gap: 7px;
   white-space: nowrap;
   cursor: pointer;
 }
