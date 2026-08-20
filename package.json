@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "./start.command",
-    "check": "node --check src/injector.mjs && node --check src/pet.js && node --check scripts/diagnose.mjs && node --check scripts/capture-page.mjs && node --check scripts/inspect-split.mjs && node --check scripts/test-pet-events.mjs",
+    "check": "node --check src/injector.mjs && node --check src/pet.js && node --check scripts/diagnose.mjs && node --check scripts/capture-page.mjs && node --check scripts/inspect-split.mjs && node --check scripts/test-pet-events.mjs && node --check scripts/test-task-notebook.mjs",
     "diagnose": "node scripts/diagnose.mjs",
     "test:pet": "node scripts/test-pet-events.mjs 8000",
+    "test:tasks": "node scripts/test-task-notebook.mjs",
     "capture": "node scripts/capture-page.mjs",
     "repack:sprites": "python3 scripts/repack-sprites.py"
   },
@@ -27,4 +28,3 @@
     "desktop-pet"
   ]
 }
-

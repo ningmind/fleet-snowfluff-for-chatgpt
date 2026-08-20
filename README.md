@@ -14,6 +14,8 @@
 - 🧊 双主题玻璃：Light/Dark 分别设置主区、侧栏、输入框和浮层
 - 🐾 像素桌宠：待机、组织回复、工作、等待、失败和庆祝动画
 - 🖱️ 桌宠交互：点击随机反应、拖动并记忆位置、右键菜单、隐藏与重新召唤
+- 📝 雪绒任务簿：今日任务速记、编辑、完成、删除、自动结转和桌宠反馈
+- 💾 双重持久化：界面本地副本，同时生成可供 Codex 阅读的 JSON 与 Markdown
 - 🔄 热更新：运行期间修改 CSS 或桌宠脚本会自动重新注入
 - ↩️ 完全可撤销：正常退出主题会话后，用常规方式启动 ChatGPT 即恢复官方界面
 
@@ -83,6 +85,35 @@ ChatGPT Desktop 没有公开、稳定的工具事件接口，因此本项目只�
 - 右键：打开快捷菜单
 - 隐藏后：使用页面右下角的召回按钮重新显示
 
+右键菜单中的“状态演示”会依次展示组织回复、工作、等待、失败、完成和空闲六种状态。
+
+## 雪绒任务簿
+
+右键点击桌宠并选择 **雪绒任务簿**：
+
+- 在输入框中速记任务，按 Enter 或点击“添加”保存
+- 勾选任务后桌宠会跳跃；全部完成后播放庆祝动画
+- 使用每项右侧按钮编辑或删除
+- 桌宠角标显示今日未完成任务数量
+- “自动结转未完成”默认开启，第二天会复制前一天尚未完成的事项
+- “清除已完成”只删除当天已经勾选的任务
+
+任务同时保存在 ChatGPT 本地存储以及以下文件中：
+
+```text
+~/Documents/Fleet Snowfluff/
+├── daily-tasks.json   # 结构化数据源
+└── daily-tasks.md     # 方便阅读并可供 Codex 使用
+```
+
+`daily-tasks.md` 是自动生成的阅读副本，下一次同步时会被覆盖；需要通过脚本处理数据时应读取 `daily-tasks.json`，平常让 Codex 查看或总结则可直接读取 Markdown。启动时会比较界面本地副本和 JSON 的 `updatedAt`，使用更新时间较新的版本。任务内容只保存在本机，不会由本项目上传到网络。
+
+如需更改目录，在启动前设置：
+
+```bash
+FLEET_SNOWFLUFF_TASKS_DIR="$HOME/Documents/My Snowfluff Tasks" ./start.command
+```
+
 精灵图在构建时使用最近邻重排为固定 `144 × 156` 单元，运行时不进行小数缩放。Light 模式使用单独图集，只柔化透明边缘附近的深色轮廓。
 
 ## 调整主题
@@ -119,6 +150,7 @@ fleet-snowfluff-for-chatgpt/
 ```bash
 npm run diagnose
 npm run test:pet
+npm run test:tasks
 npm run capture -- /private/tmp/fleet-snowfluff.png
 ```
 
@@ -141,6 +173,10 @@ node scripts/test-pet-events.mjs 3000 waiting
 ### 桌宠或部分玻璃区域消失
 
 先完全退出 ChatGPT 并重新运行启动器。如果问题发生在 ChatGPT 更新后，请附上应用版本、Light/Dark 模式和截图提交 Issue。
+
+### 任务簿能打开，但没有生成本地文件
+
+任务簿界面会通过热更新立即生效；新增的文件同步功能需要新版注入器进程。完全退出 ChatGPT 和当前主题终端，再重新运行 `start.command`。首次同步后会自动建立 `~/Documents/Fleet Snowfluff/`。
 
 ### 端口被占用
 

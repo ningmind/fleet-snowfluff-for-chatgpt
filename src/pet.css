@@ -90,6 +90,229 @@
   background: rgba(125, 211, 252, 0.18);
 }
 
+#codex-aemeath-pet .codex-task-panel {
+  position: absolute;
+  bottom: 164px;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(520px, calc(100vh - 190px));
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  pointer-events: auto;
+  color: #eef4ff;
+  background: rgba(17, 24, 52, 0.86);
+  border: 1px solid rgba(149, 211, 255, 0.28);
+  border-radius: 18px;
+  box-shadow: rgba(255, 255, 255, 0.10) 0 0 0 0.5px, rgba(0, 0, 0, 0.34) 0 12px 34px;
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  animation: codex-task-panel-pop 180ms ease;
+}
+
+#codex-aemeath-pet .codex-task-panel button,
+#codex-aemeath-pet .codex-task-panel input {
+  box-sizing: border-box;
+  font: inherit;
+}
+
+#codex-aemeath-pet .codex-task-header,
+#codex-aemeath-pet .codex-task-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#codex-aemeath-pet .codex-task-header > div {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+#codex-aemeath-pet .codex-task-header strong {
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+#codex-aemeath-pet .codex-task-header span,
+#codex-aemeath-pet .codex-task-summary,
+#codex-aemeath-pet .codex-task-sync {
+  color: rgba(226, 236, 255, 0.68);
+  font-size: 11px;
+}
+
+#codex-aemeath-pet .codex-task-icon-button,
+#codex-aemeath-pet .codex-task-actions button {
+  min-width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+#codex-aemeath-pet .codex-task-icon-button:hover,
+#codex-aemeath-pet .codex-task-actions button:hover {
+  background: rgba(125, 211, 252, 0.16);
+}
+
+#codex-aemeath-pet .codex-task-add,
+#codex-aemeath-pet .codex-task-edit {
+  display: flex;
+  gap: 6px;
+}
+
+#codex-aemeath-pet .codex-task-add input,
+#codex-aemeath-pet .codex-task-edit input {
+  min-width: 0;
+  flex: 1;
+  height: 34px;
+  padding: 0 10px;
+  color: inherit;
+  background: rgba(7, 11, 28, 0.48);
+  border: 1px solid rgba(149, 211, 255, 0.22);
+  border-radius: 10px;
+  outline: none;
+}
+
+#codex-aemeath-pet .codex-task-add input:focus,
+#codex-aemeath-pet .codex-task-edit input:focus {
+  border-color: rgba(149, 211, 255, 0.52);
+  box-shadow: rgba(96, 165, 250, 0.18) 0 0 0 3px;
+}
+
+#codex-aemeath-pet .codex-task-add button,
+#codex-aemeath-pet .codex-task-edit button,
+#codex-aemeath-pet .codex-task-controls > button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(149, 211, 255, 0.22);
+  border-radius: 9px;
+  color: inherit;
+  background: rgba(125, 180, 255, 0.10);
+  cursor: pointer;
+}
+
+#codex-aemeath-pet .codex-task-add button:hover,
+#codex-aemeath-pet .codex-task-edit button:hover,
+#codex-aemeath-pet .codex-task-controls > button:hover {
+  background: rgba(125, 211, 252, 0.18);
+}
+
+#codex-aemeath-pet .codex-task-controls > button:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+#codex-aemeath-pet .codex-task-list {
+  min-height: 72px;
+  max-height: 278px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 2px;
+}
+
+#codex-aemeath-pet .codex-task-empty {
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  color: rgba(226, 236, 255, 0.58);
+  font-size: 12px;
+  text-align: center;
+}
+
+#codex-aemeath-pet .codex-task-row {
+  min-height: 38px;
+  padding: 5px 6px;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  border-radius: 10px;
+  background: rgba(125, 180, 255, 0.06);
+}
+
+#codex-aemeath-pet .codex-task-row:hover {
+  background: rgba(125, 180, 255, 0.11);
+}
+
+#codex-aemeath-pet .codex-task-row > input[type="checkbox"],
+#codex-aemeath-pet .codex-task-controls input[type="checkbox"] {
+  accent-color: #7dd3fc;
+  cursor: pointer;
+}
+
+#codex-aemeath-pet .codex-task-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+#codex-aemeath-pet .codex-task-row.is-done .codex-task-text {
+  color: rgba(226, 236, 255, 0.48);
+  text-decoration: line-through;
+}
+
+#codex-aemeath-pet .codex-task-actions {
+  display: flex;
+  opacity: 0.55;
+}
+
+#codex-aemeath-pet .codex-task-row:hover .codex-task-actions {
+  opacity: 1;
+}
+
+#codex-aemeath-pet .codex-task-edit {
+  grid-column: 2 / 4;
+}
+
+#codex-aemeath-pet .codex-task-controls {
+  padding-top: 2px;
+  font-size: 11px;
+}
+
+#codex-aemeath-pet .codex-task-controls label {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#codex-aemeath-pet .codex-task-sync {
+  padding-top: 7px;
+  border-top: 1px solid rgba(149, 211, 255, 0.12);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#codex-aemeath-pet .codex-pet-task-badge {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.60);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(236, 72, 153, 0.90);
+  box-shadow: rgba(236, 72, 153, 0.28) 0 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
 #codex-aemeath-pet .codex-pet-summon {
   width: 44px;
   height: 44px;
@@ -115,6 +338,42 @@
   border-color: rgba(53, 101, 165, 0.18);
 }
 
+.electron-light #codex-aemeath-pet .codex-task-panel {
+  color: #18213b;
+  background: rgba(237, 241, 255, 0.88);
+  border-color: rgba(53, 101, 165, 0.18);
+  box-shadow: rgba(255, 255, 255, 0.48) 0 0 0 0.5px, rgba(20, 35, 65, 0.16) 0 12px 32px;
+}
+
+.electron-light #codex-aemeath-pet .codex-task-header span,
+.electron-light #codex-aemeath-pet .codex-task-summary,
+.electron-light #codex-aemeath-pet .codex-task-sync,
+.electron-light #codex-aemeath-pet .codex-task-empty {
+  color: rgba(40, 55, 91, 0.62);
+}
+
+.electron-light #codex-aemeath-pet .codex-task-add input,
+.electron-light #codex-aemeath-pet .codex-task-edit input {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(53, 101, 165, 0.16);
+}
+
+.electron-light #codex-aemeath-pet .codex-task-row {
+  background: rgba(92, 108, 151, 0.055);
+}
+
+.electron-light #codex-aemeath-pet .codex-task-row:hover {
+  background: rgba(92, 108, 151, 0.10);
+}
+
+.electron-light #codex-aemeath-pet .codex-task-row.is-done .codex-task-text {
+  color: rgba(40, 55, 91, 0.46);
+}
+
+.electron-light #codex-aemeath-pet .codex-task-sync {
+  border-top-color: rgba(53, 101, 165, 0.10);
+}
+
 .electron-light #codex-aemeath-pet .codex-pet-sprite {
   filter: drop-shadow(0 3px 6px rgba(116, 88, 150, 0.18));
 }
@@ -135,4 +394,9 @@
 @keyframes codex-pet-summon-pop {
   from { opacity: 0; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes codex-task-panel-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
