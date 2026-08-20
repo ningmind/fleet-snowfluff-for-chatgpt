@@ -92,6 +92,11 @@ const response = await evaluate(`(() => {
       rolloverSource: rolled?.tasks[0]?.carriedFrom || '',
     };
   } finally {
+    const draftInput = document.querySelector('.codex-task-add input');
+    if (draftInput) {
+      draftInput.value = '';
+      draftInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
     api.import(backup);
     api.close();
   }
