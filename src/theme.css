@@ -140,6 +140,24 @@ body,
   opacity: 0 !important;
 }
 
+/* Sticky section headers (for example the Plugins search row) add their own
+   32px white-to-transparent fade. Keep the depth cue, but tint it toward the
+   pearl-blue glass instead of laying a pure-white band over the wallpaper. */
+.electron-light [class*="after:from-surface"][class*="after:to-transparent"]::after {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(226, 232, 247, 0.12) 0%,
+    rgba(226, 232, 247, 0.05) 42%,
+    rgba(226, 232, 247, 0) 100%
+  ) !important;
+}
+
+/* Section rules should read as quiet glass seams, not white/grey cuts. */
+.electron-light .border-subtle,
+.electron-light [class*="border-border/40"] {
+  border-color: rgba(73, 88, 132, 0.045) !important;
+}
+
 .electron-dark main[class*="_MainContentSurface_"] {
   background-color: rgba(7, 11, 28, 0.70) !important;
   border-left-color: rgba(149, 211, 255, 0.02) !important;
