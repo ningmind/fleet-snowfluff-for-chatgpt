@@ -2,9 +2,13 @@
 
 为 macOS 版 ChatGPT Desktop 添加高清壁纸、Light/Dark 毛玻璃界面和可交互像素桌宠。
 
-<img width="1470" height="845" alt="image" src="https://github.com/user-attachments/assets/2bec8fc6-5a88-4d37-b58b-84fe86e75b3a" />
+### Dark
 
-<img width="1470" height="845" alt="image" src="https://github.com/user-attachments/assets/438d8a94-c80b-403a-ab76-98557d4a11bc" />
+<img width="1470" height="845" alt="Fleet Snowfluff Dark theme on an empty Codex new chat" src="assets/preview-dark.png" />
+
+### Light
+
+<img width="1470" height="845" alt="Fleet Snowfluff Light theme on the Codex Plugins page" src="assets/preview-light.png" />
 
 > **非官方项目。** 本项目不隶属于 OpenAI，也不是 ChatGPT 插件。它通过仅监听本机的 Electron DevTools 接口在运行时注入样式，不修改 `ChatGPT.app`、`app.asar` 或应用签名。
 
@@ -83,6 +87,7 @@ ChatGPT Desktop 没有公开、稳定的工具事件接口，因此本项目只�
 - 左键点击：随机动画与台词
 - 左键拖动：移动位置，位置保存在 ChatGPT 的本地存储中
 - 右键：打开快捷菜单
+- 任务簿打开时右键桌宠：直接关闭任务簿
 - 隐藏后：使用页面右下角的召回按钮重新显示
 
 右键菜单中的“状态演示”会依次展示组织回复、工作、等待、失败、完成和空闲六种状态。
@@ -95,7 +100,7 @@ ChatGPT Desktop 没有公开、稳定的工具事件接口，因此本项目只�
 - 勾选任务后桌宠会跳跃；全部完成后播放庆祝动画
 - 使用每项右侧按钮编辑或删除
 - 桌宠角标显示今日未完成任务数量
-- 可隐藏已完成任务而保留完成统计，再次点击即可显示
+- “隐藏已完成”只过滤列表并保留完成统计，再次点击“显示已完成”即可恢复
 - “自动结转未完成”默认开启，第二天会复制前一天尚未完成的事项
 - “清除已完成”只删除当天已经勾选的任务
 
@@ -133,7 +138,7 @@ FLEET_SNOWFLUFF_TASKS_DIR="$HOME/Documents/My Snowfluff Tasks" ./start.command
 
 ```text
 fleet-snowfluff-for-chatgpt/
-├── assets/                 # 壁纸、源精灵表和清晰化图集
+├── assets/                 # 壁纸、README 预览图、源精灵表和清晰化图集
 ├── scripts/                # 诊断、截图、状态测试和图集重排工具
 ├── src/
 │   ├── injector.mjs        # DevTools 连接与热注入
