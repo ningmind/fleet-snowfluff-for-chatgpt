@@ -27,7 +27,9 @@ const response = await evaluate(`(() => {
   const api = window.__codexSnowfluffTasks;
   if (!api) return { ok: false, reason: 'Task notebook API is unavailable' };
   const backup = window.__codexSnowfluffExportTasks();
+  const initialHideCompleted = api.isHidingCompleted?.() || false;
   try {
+    api.setHideCompleted(false);
     api.add('Fleet Snowfluff task test one');
     api.add('Fleet Snowfluff task test two');
     const current = window.__codexSnowfluffExportTasks();
@@ -60,6 +62,14 @@ const response = await evaluate(`(() => {
       addButtonHeight: addButton ? addButton.getBoundingClientRect().height : 0,
       repeatedOpeningAnimation: panel?.classList.contains('is-opening') || false,
     };
+    const summaryBeforeHiding = panel?.querySelector('.codex-task-summary')?.textContent || '';
+    api.setHideCompleted(true);
+    panel = document.querySelector('.codex-task-panel');
+    interaction.hiddenCompletedRows = panel?.querySelectorAll('.codex-task-row.is-done').length ?? -1;
+    interaction.summaryUnchangedWhenHidden = panel?.querySelector('.codex-task-summary')?.textContent === summaryBeforeHiding;
+    interaction.showCompletedLabel = [...panel?.querySelectorAll('.codex-task-control-actions button') || []]
+      .some(button => button.textContent === '显示已完成');
+    api.setHideCompleted(false);
     document.querySelector('.codex-pet-sprite')?.dispatchEvent(new MouseEvent('contextmenu', {
       bubbles: true, cancelable: true, button: 2,
     }));
@@ -98,6 +108,7 @@ const response = await evaluate(`(() => {
       draftInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
     api.import(backup);
+    api.setHideCompleted(initialHideCompleted);
     api.close();
   }
 })()`)
@@ -106,6 +117,7 @@ const result = response.result?.result?.value
 console.log(JSON.stringify(result, null, 2))
 if (!result?.ok || result.heading !== '雪绒任务簿 ❄️' || result.completedRows < 1 || !result.edited ||
   !result.draftPreserved || result.closeButtonWidth < 34 || result.addInputHeight > 30 || result.addButtonHeight > 28 ||
-  result.repeatedOpeningAnimation || !result.rightClickClosed || result.rolloverCount !== 1) {
+  result.repeatedOpeningAnimation || result.hiddenCompletedRows !== 0 || !result.summaryUnchangedWhenHidden ||
+  !result.showCompletedLabel || !result.rightClickClosed || result.rolloverCount !== 1) {
   process.exitCode = 1
 }

@@ -209,7 +209,7 @@
 
 #codex-aemeath-pet .codex-task-add button,
 #codex-aemeath-pet .codex-task-edit button,
-#codex-aemeath-pet .codex-task-controls > button {
+#codex-aemeath-pet .codex-task-control-actions button {
   min-height: 30px;
   padding: 0 10px;
   border: 1px solid rgba(149, 211, 255, 0.22);
@@ -221,7 +221,7 @@
 
 #codex-aemeath-pet .codex-task-add button:hover,
 #codex-aemeath-pet .codex-task-edit button:hover,
-#codex-aemeath-pet .codex-task-controls > button:hover {
+#codex-aemeath-pet .codex-task-control-actions button:hover {
   background: rgba(125, 211, 252, 0.18);
 }
 
@@ -232,7 +232,7 @@
   font-size: 12px;
 }
 
-#codex-aemeath-pet .codex-task-controls > button:disabled {
+#codex-aemeath-pet .codex-task-control-actions button:disabled {
   opacity: 0.38;
   cursor: default;
 }
@@ -314,6 +314,11 @@
   gap: 7px;
   white-space: nowrap;
   cursor: pointer;
+}
+
+#codex-aemeath-pet .codex-task-control-actions {
+  display: flex;
+  gap: 5px;
 }
 
 #codex-aemeath-pet .codex-task-sync {

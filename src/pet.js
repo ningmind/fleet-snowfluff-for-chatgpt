@@ -142,6 +142,7 @@
   let editingTaskId = ''
   let newTaskDraft = ''
   let editingTaskDraft = ''
+  let hideCompleted = readStorage('task-hide-completed', '0') === '1'
   let overrideUntil = 0
   let lastBusy = false
   let idleTimer = 0
@@ -256,6 +257,16 @@
     day.tasks = day.tasks.filter((task) => !task.done)
     commitTaskChange()
   }
+  const setHideCompleted = (value) => {
+    hideCompleted = Boolean(value)
+    writeStorage('task-hide-completed', hideCompleted ? '1' : '0')
+    if (hideCompleted && todayTasks().find((task) => task.id === editingTaskId)?.done) {
+      editingTaskId = ''
+      editingTaskDraft = ''
+    }
+    render()
+    return hideCompleted
+  }
 
   const reactRandomly = () => {
     const [name, text] = REACTIONS[Math.floor(Math.random() * REACTIONS.length)]
@@ -366,13 +377,14 @@
 
     const list = document.createElement('div')
     list.className = 'codex-task-list'
-    if (!todayTasks().length) {
+    const visibleTasks = todayTasks().filter((task) => !(hideCompleted && task.done))
+    if (!visibleTasks.length) {
       const empty = document.createElement('div')
       empty.className = 'codex-task-empty'
-      empty.textContent = '今天还没有任务，先记下一件小事吧。'
+      empty.textContent = todayTasks().length ? '已完成任务已隐藏。' : '今天还没有任务，先记下一件小事吧。'
       list.appendChild(empty)
     }
-    for (const task of todayTasks()) {
+    for (const task of visibleTasks) {
       const row = document.createElement('div')
       row.className = `codex-task-row${task.done ? ' is-done' : ''}`
       row.dataset.taskId = task.id
@@ -438,12 +450,20 @@
     const carryText = document.createElement('span')
     carryText.textContent = '自动结转未完成'
     carryLabel.append(carry, carryText)
+    const controlActions = document.createElement('div')
+    controlActions.className = 'codex-task-control-actions'
+    const hide = document.createElement('button')
+    hide.type = 'button'
+    hide.textContent = hideCompleted ? '显示已完成' : '隐藏已完成'
+    hide.disabled = completed === 0
+    hide.addEventListener('click', () => setHideCompleted(!hideCompleted))
     const clear = document.createElement('button')
     clear.type = 'button'
     clear.textContent = '清除已完成'
     clear.disabled = completed === 0
     clear.addEventListener('click', clearCompletedTasks)
-    controls.append(carryLabel, clear)
+    controlActions.append(hide, clear)
+    controls.append(carryLabel, controlActions)
 
     const sync = document.createElement('div')
     sync.className = 'codex-task-sync'
@@ -671,6 +691,8 @@
     toggle: (id) => { toggleTask(String(id || '')); return true },
     remove: (id) => { removeTask(String(id || '')); return true },
     clearCompleted: () => { clearCompletedTasks(); return true },
+    isHidingCompleted: () => hideCompleted,
+    setHideCompleted,
     import: (value) => {
       taskNotebook = normalizeNotebook(value)
       taskDate = localDateKey()
