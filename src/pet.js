@@ -206,7 +206,7 @@
       const menu = document.createElement('div')
       menu.className = 'codex-pet-menu'
       menu.append(
-        makeMenuButton('🧪 依次演示六种状态', runStateDemo),
+        makeMenuButton('🧪 状态演示', runStateDemo),
         makeMenuButton('🐾 换个表情', reactRandomly),
         makeMenuButton('💬 打个招呼', () => playTemporary('waving', '你好呀～今天也一起加油！')),
         makeMenuButton('✕ 隐藏桌宠', () => {
