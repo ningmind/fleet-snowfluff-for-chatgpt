@@ -140,6 +140,12 @@ body,
   opacity: 0 !important;
 }
 
+.electron-dark [class*="_MainContentTopFade_"] {
+  background: transparent !important;
+  background-image: none !important;
+  opacity: 0 !important;
+}
+
 /* Sticky section headers (for example the Plugins search row) add their own
    32px white-to-transparent fade. Keep the depth cue, but tint it toward the
    pearl-blue glass instead of laying a pure-white band over the wallpaper. */
@@ -156,6 +162,20 @@ body,
 .electron-light .border-subtle,
 .electron-light [class*="border-border/40"] {
   border-color: rgba(73, 88, 132, 0.045) !important;
+}
+
+.electron-dark [class*="after:from-surface"][class*="after:to-transparent"]::after {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(24, 34, 68, 0.12) 0%,
+    rgba(24, 34, 68, 0.05) 42%,
+    rgba(24, 34, 68, 0) 100%
+  ) !important;
+}
+
+.electron-dark .border-subtle,
+.electron-dark [class*="border-border/40"] {
+  border-color: rgba(142, 190, 255, 0.04) !important;
 }
 
 .electron-dark main[class*="_MainContentSurface_"] {
@@ -203,6 +223,37 @@ header,
 
 aside nav {
   background-color: transparent !important;
+}
+
+/* Carry a small amount of the sidebar glass across the boundary. The panel is
+   overflow-visible, so this soft overlay can bridge the two surfaces instead
+   of asking the darker/lighter main wash to begin at a hard vertical edge. */
+.electron-light aside::after,
+.electron-dark aside::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 -44px 0 auto !important;
+  width: 44px !important;
+  pointer-events: none !important;
+  z-index: 3 !important;
+}
+
+.electron-light aside::after {
+  background: linear-gradient(
+    to right,
+    rgba(237, 241, 255, 0.22) 0%,
+    rgba(237, 241, 255, 0.08) 58%,
+    rgba(237, 241, 255, 0) 100%
+  ) !important;
+}
+
+.electron-dark aside::after {
+  background: linear-gradient(
+    to right,
+    rgba(42, 53, 96, 0.32) 0%,
+    rgba(42, 53, 96, 0.11) 58%,
+    rgba(42, 53, 96, 0) 100%
+  ) !important;
 }
 
 /* The pinned-summary control starts as a flat 5% white overlay. Give it the
@@ -290,19 +341,44 @@ aside nav {
   background: rgba(74, 91, 126, 0.12) !important;
 }
 
-/* The wallpaper has a vertical glitch block exactly beside the current sidebar
-   width. Feather that small area into the main glass instead of moving the art. */
+/* Feather the opacity jump between the 40% sidebar glass and the stronger main
+   wash. This is a color-only transition: no blur is applied to the wallpaper. */
 .electron-light main[class*="_MainContentSurface_"]::before {
   content: "" !important;
   position: absolute !important;
   inset: 0 auto 0 0 !important;
-  width: 40px !important;
+  width: 44px !important;
   pointer-events: none !important;
-  background: transparent !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.72) 55%, transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.72) 55%, transparent 100%) !important;
+  z-index: 2 !important;
+  background: linear-gradient(
+    to right,
+    rgba(92, 108, 151, 0.10) 0%,
+    rgba(92, 108, 151, 0.04) 55%,
+    rgba(92, 108, 151, 0) 100%
+  ) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+.electron-dark main[class*="_MainContentSurface_"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 auto 0 0 !important;
+  width: 44px !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  background: linear-gradient(
+    to right,
+    rgba(83, 111, 172, 0.26) 0%,
+    rgba(83, 111, 172, 0.09) 55%,
+    rgba(83, 111, 172, 0) 100%
+  ) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
 }
 
 [class*="cursor-col-resize"]:hover .sidebar-resize-handle-line,
