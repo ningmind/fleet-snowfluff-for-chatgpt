@@ -45,6 +45,8 @@ const response = await evaluate(`(() => {
     api.import(window.__codexSnowfluffExportTasks());
     panel = document.querySelector('.codex-task-panel');
     const closeButton = panel?.querySelector('.codex-task-icon-button');
+    const addInput = panel?.querySelector('.codex-task-add input');
+    const addButton = panel?.querySelector('.codex-task-add button');
     const interaction = {
       ok: !!panel && tasks.length === 2,
       heading: panel?.querySelector('.codex-task-header strong')?.textContent || '',
@@ -54,8 +56,15 @@ const response = await evaluate(`(() => {
       badge: document.querySelector('.codex-pet-task-badge')?.textContent || '',
       draftPreserved: panel?.querySelector('.codex-task-add input')?.value === 'unsaved draft survives render',
       closeButtonWidth: closeButton ? closeButton.getBoundingClientRect().width : 0,
+      addInputHeight: addInput ? addInput.getBoundingClientRect().height : 0,
+      addButtonHeight: addButton ? addButton.getBoundingClientRect().height : 0,
       repeatedOpeningAnimation: panel?.classList.contains('is-opening') || false,
     };
+    document.querySelector('.codex-pet-sprite')?.dispatchEvent(new MouseEvent('contextmenu', {
+      bubbles: true, cancelable: true, button: 2,
+    }));
+    interaction.rightClickClosed = !document.querySelector('.codex-task-panel');
+    api.open();
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const dateKey = value => [value.getFullYear(), String(value.getMonth() + 1).padStart(2, '0'), String(value.getDate()).padStart(2, '0')].join('-');
@@ -91,6 +100,7 @@ socket.close()
 const result = response.result?.result?.value
 console.log(JSON.stringify(result, null, 2))
 if (!result?.ok || result.heading !== '雪绒任务簿 ❄️' || result.completedRows < 1 || !result.edited ||
-  !result.draftPreserved || result.closeButtonWidth < 34 || result.repeatedOpeningAnimation || result.rolloverCount !== 1) {
+  !result.draftPreserved || result.closeButtonWidth < 34 || result.addInputHeight > 30 || result.addButtonHeight > 28 ||
+  result.repeatedOpeningAnimation || !result.rightClickClosed || result.rolloverCount !== 1) {
   process.exitCode = 1
 }

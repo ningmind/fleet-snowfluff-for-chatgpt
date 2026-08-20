@@ -177,6 +177,10 @@
   gap: 6px;
 }
 
+#codex-aemeath-pet .codex-task-add {
+  align-items: center;
+}
+
 #codex-aemeath-pet .codex-task-add input,
 #codex-aemeath-pet .codex-task-edit input {
   min-width: 0;
@@ -188,6 +192,13 @@
   border: 1px solid rgba(149, 211, 255, 0.22);
   border-radius: 10px;
   outline: none;
+}
+
+#codex-aemeath-pet .codex-task-add input {
+  height: 30px;
+  padding: 0 9px;
+  border-radius: 9px;
+  font-size: 12px;
 }
 
 #codex-aemeath-pet .codex-task-add input:focus,
@@ -212,6 +223,13 @@
 #codex-aemeath-pet .codex-task-edit button:hover,
 #codex-aemeath-pet .codex-task-controls > button:hover {
   background: rgba(125, 211, 252, 0.18);
+}
+
+#codex-aemeath-pet .codex-task-add button {
+  min-height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font-size: 12px;
 }
 
 #codex-aemeath-pet .codex-task-controls > button:disabled {

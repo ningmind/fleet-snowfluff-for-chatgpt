@@ -510,7 +510,7 @@
     if (notebookOpen) root.appendChild(renderTaskNotebookPanel(!panelWasOpen))
     const sprite = document.createElement('div')
     sprite.className = 'codex-pet-sprite'
-    sprite.title = '左键互动或拖动；右键打开菜单'
+    sprite.title = notebookOpen ? '右键关闭雪绒任务簿' : '左键互动或拖动；右键打开菜单'
     sprite.addEventListener('pointerdown', (event) => {
       if (event.button !== 0) return
       event.preventDefault()
@@ -523,7 +523,12 @@
     })
     sprite.addEventListener('contextmenu', (event) => {
       event.preventDefault()
-      menuOpen = !menuOpen
+      if (notebookOpen) {
+        notebookOpen = false
+        menuOpen = false
+        editingTaskId = ''
+        editingTaskDraft = ''
+      } else menuOpen = !menuOpen
       render()
     })
     root.appendChild(sprite)
