@@ -191,7 +191,8 @@
     const frames = FRAMES[animation] || FRAMES.idle
     const [row, column] = frames[frame % frames.length]
     sprite.style.backgroundPosition = `${-column * 144}px ${-row * 156}px`
-    const lightTheme = document.documentElement.classList.contains('electron-light')
+    const themeRoot = document.documentElement
+    const lightTheme = themeRoot.dataset.theme === 'light' || themeRoot.classList.contains('electron-light')
     const activeSpriteUrl = lightTheme ? LIGHT_SPRITE_URL : SPRITE_URL
     sprite.style.backgroundImage = `url(${JSON.stringify(activeSpriteUrl)})`
   }

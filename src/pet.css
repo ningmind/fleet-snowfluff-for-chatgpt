@@ -366,58 +366,58 @@
   animation: codex-pet-summon-pop 180ms ease;
 }
 
-.electron-light #codex-aemeath-pet .codex-pet-bubble,
-.electron-light #codex-aemeath-pet .codex-pet-menu {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-pet-bubble,
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-pet-menu {
   color: #18213b;
   background: rgba(237, 241, 255, 0.72);
   border-color: rgba(53, 101, 165, 0.18);
 }
 
-.electron-light #codex-aemeath-pet .codex-task-panel {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-panel {
   color: #18213b;
   background: rgba(237, 241, 255, 0.88);
   border-color: rgba(53, 101, 165, 0.18);
   box-shadow: rgba(255, 255, 255, 0.48) 0 0 0 0.5px, rgba(20, 35, 65, 0.16) 0 12px 32px;
 }
 
-.electron-light #codex-aemeath-pet .codex-task-header span,
-.electron-light #codex-aemeath-pet .codex-task-summary,
-.electron-light #codex-aemeath-pet .codex-task-sync,
-.electron-light #codex-aemeath-pet .codex-task-empty {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-header span,
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-summary,
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-sync,
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-empty {
   color: rgba(40, 55, 91, 0.62);
 }
 
-.electron-light #codex-aemeath-pet .codex-task-add input,
-.electron-light #codex-aemeath-pet .codex-task-edit input {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-add input,
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-edit input {
   background: rgba(255, 255, 255, 0.58);
   border-color: rgba(53, 101, 165, 0.16);
 }
 
-.electron-light #codex-aemeath-pet .codex-task-row {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-row {
   background: rgba(92, 108, 151, 0.055);
 }
 
-.electron-light #codex-aemeath-pet .codex-task-row:hover {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-row:hover {
   background: rgba(92, 108, 151, 0.10);
 }
 
-.electron-light #codex-aemeath-pet .codex-task-row.is-done .codex-task-text {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-row.is-done .codex-task-text {
   color: rgba(40, 55, 91, 0.46);
 }
 
-.electron-light #codex-aemeath-pet .codex-task-sync {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-task-sync {
   border-top-color: rgba(53, 101, 165, 0.10);
 }
 
-.electron-light #codex-aemeath-pet .codex-pet-sprite {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-pet-sprite {
   filter: drop-shadow(0 3px 6px rgba(116, 88, 150, 0.18));
 }
 
-.electron-light #codex-aemeath-pet .codex-pet-sprite:hover {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-pet-sprite:hover {
   filter: drop-shadow(0 4px 8px rgba(116, 88, 150, 0.24));
 }
 
-.electron-light #codex-aemeath-pet .codex-pet-bubble::after {
+:is(.electron-light, html[data-theme="light"]) #codex-aemeath-pet .codex-pet-bubble::after {
   border-top-color: rgba(237, 241, 255, 0.72);
 }
 

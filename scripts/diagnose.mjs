@@ -33,6 +33,7 @@ const expression = `(() => {
   };
   return {
     viewport: [innerWidth, innerHeight],
+    htmlTheme: document.documentElement.dataset.theme || null,
     htmlClass: document.documentElement.className,
     bodyClass: document.body.className,
     themePresent: Boolean(document.getElementById('codex-custom-wallpaper')),

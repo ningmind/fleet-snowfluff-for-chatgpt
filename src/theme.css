@@ -26,6 +26,7 @@ html {
 }
 
 html.electron-dark,
+html[data-theme="dark"],
 html:has(.electron-dark) {
   background-image:
     linear-gradient(var(--codex-wallpaper-dim-dark), var(--codex-wallpaper-dim-dark)),
@@ -39,7 +40,7 @@ body,
 }
 
 /* Light appearance: pearl glass with dark, readable foreground colors. */
-.electron-light {
+:is(.electron-light, html[data-theme="light"]) {
   color-scheme: light;
   --color-background-surface: var(--codex-glass-light);
   --color-background-surface-under: var(--codex-glass-light-soft);
@@ -65,7 +66,7 @@ body,
 }
 
 /* Dark appearance: deep-space glass with light foreground colors. */
-.electron-dark {
+:is(.electron-dark, html[data-theme="dark"]) {
   color-scheme: dark;
   --color-background-surface: var(--codex-glass-dark);
   --color-background-surface-under: rgba(7, 11, 28, 0.52);
@@ -91,8 +92,8 @@ body,
 }
 
 /* Rebind aliases that the application defines on its theme root. */
-.electron-light,
-.electron-dark {
+:is(.electron-light, html[data-theme="light"]),
+:is(.electron-dark, html[data-theme="dark"]) {
   --color-surface: var(--color-background-surface);
   --color-surface-secondary: var(--vscode-sideBar-background);
   --color-surface-tertiary: var(--vscode-editor-background);
@@ -124,7 +125,7 @@ body,
 /* The conversation/inspector workspace is painted by a CSS Module rather than
    the shared color tokens above. Its generated suffix changes between builds,
    so match only the stable component-name prefix. */
-.electron-light main[class*="_MainContentSurface_"] {
+:is(.electron-light, html[data-theme="light"]) main[class*="_MainContentSurface_"] {
   background-color: rgba(250, 248, 255, 0.75) !important;
   border-left-color: rgba(53, 101, 165, 0.02) !important;
   backdrop-filter: none !important;
@@ -134,13 +135,13 @@ body,
 /* The app toggles a 16px pure-white top fade as the main viewport scrolls.
    It becomes a hard white strip over the light wallpaper, so keep this edge
    seamless and let the existing 75% main-surface wash provide contrast. */
-.electron-light [class*="_MainContentTopFade_"] {
+:is(.electron-light, html[data-theme="light"]) [class*="_MainContentTopFade_"] {
   background: transparent !important;
   background-image: none !important;
   opacity: 0 !important;
 }
 
-.electron-dark [class*="_MainContentTopFade_"] {
+:is(.electron-dark, html[data-theme="dark"]) [class*="_MainContentTopFade_"] {
   background: transparent !important;
   background-image: none !important;
   opacity: 0 !important;
@@ -149,7 +150,7 @@ body,
 /* Sticky section headers (for example the Plugins search row) add their own
    32px white-to-transparent fade. Keep the depth cue, but tint it toward the
    pearl-blue glass instead of laying a pure-white band over the wallpaper. */
-.electron-light [class*="after:from-surface"][class*="after:to-transparent"]::after {
+:is(.electron-light, html[data-theme="light"]) [class*="after:from-surface"][class*="after:to-transparent"]::after {
   background-image: linear-gradient(
     to bottom,
     rgba(226, 232, 247, 0.12) 0%,
@@ -159,12 +160,12 @@ body,
 }
 
 /* Section rules should read as quiet glass seams, not white/grey cuts. */
-.electron-light .border-subtle,
-.electron-light [class*="border-border/40"] {
+:is(.electron-light, html[data-theme="light"]) .border-subtle,
+:is(.electron-light, html[data-theme="light"]) [class*="border-border/40"] {
   border-color: rgba(73, 88, 132, 0.045) !important;
 }
 
-.electron-dark [class*="after:from-surface"][class*="after:to-transparent"]::after {
+:is(.electron-dark, html[data-theme="dark"]) [class*="after:from-surface"][class*="after:to-transparent"]::after {
   background-image: linear-gradient(
     to bottom,
     rgba(24, 34, 68, 0.12) 0%,
@@ -173,12 +174,12 @@ body,
   ) !important;
 }
 
-.electron-dark .border-subtle,
-.electron-dark [class*="border-border/40"] {
+:is(.electron-dark, html[data-theme="dark"]) .border-subtle,
+:is(.electron-dark, html[data-theme="dark"]) [class*="border-border/40"] {
   border-color: rgba(142, 190, 255, 0.04) !important;
 }
 
-.electron-dark main[class*="_MainContentSurface_"] {
+:is(.electron-dark, html[data-theme="dark"]) main[class*="_MainContentSurface_"] {
   background-color: rgba(7, 11, 28, 0.70) !important;
   border-left-color: rgba(149, 211, 255, 0.02) !important;
   backdrop-filter: none !important;
@@ -200,7 +201,7 @@ header,
 /* The sidebar contains a nested nav. Painting both layers stacks their alpha
    and leaves a visibly lighter band beside the resize hit area. Paint one
    equivalent glass layer on the outer panel and keep the inner nav clear. */
-.electron-light aside {
+:is(.electron-light, html[data-theme="light"]) aside {
   background-color: rgba(237, 241, 255, 0.40) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -210,7 +211,7 @@ header,
     rgba(20, 35, 65, 0.05) 0 0 20px !important;
 }
 
-.electron-dark aside {
+:is(.electron-dark, html[data-theme="dark"]) aside {
   background-color: oklab(0.219544 0.000677 -0.055547 / 0.40) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -228,8 +229,8 @@ aside nav {
 /* Carry a small amount of the sidebar glass across the boundary. The panel is
    overflow-visible, so this soft overlay can bridge the two surfaces instead
    of asking the darker/lighter main wash to begin at a hard vertical edge. */
-.electron-light aside::after,
-.electron-dark aside::after {
+:is(.electron-light, html[data-theme="light"]) aside::after,
+:is(.electron-dark, html[data-theme="dark"]) aside::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 -44px 0 auto !important;
@@ -238,7 +239,7 @@ aside nav {
   z-index: 3 !important;
 }
 
-.electron-light aside::after {
+:is(.electron-light, html[data-theme="light"]) aside::after {
   background: linear-gradient(
     to right,
     rgba(237, 241, 255, 0.22) 0%,
@@ -247,7 +248,7 @@ aside nav {
   ) !important;
 }
 
-.electron-dark aside::after {
+:is(.electron-dark, html[data-theme="dark"]) aside::after {
   background: linear-gradient(
     to right,
     rgba(42, 53, 96, 0.32) 0%,
@@ -258,7 +259,7 @@ aside nav {
 
 /* The pinned-summary control starts as a flat 5% white overlay. Give it the
    same restrained glass vocabulary as the composer without making it heavy. */
-.electron-light button[aria-label="Toggle pinned summary"] {
+:is(.electron-light, html[data-theme="light"]) button[aria-label="Toggle pinned summary"] {
   background-color: rgba(237, 241, 255, 0.46) !important;
   border-color: rgba(53, 101, 165, 0.10) !important;
   backdrop-filter: blur(16px) !important;
@@ -268,7 +269,7 @@ aside nav {
     rgba(20, 35, 65, 0.08) 0 3px 10px !important;
 }
 
-.electron-dark button[aria-label="Toggle pinned summary"] {
+:is(.electron-dark, html[data-theme="dark"]) button[aria-label="Toggle pinned summary"] {
   background-color: oklab(0.219544 0.000677 -0.055547 / 0.48) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
   backdrop-filter: blur(16px) !important;
@@ -281,7 +282,7 @@ aside nav {
 
 /* The stock light composer is 54% pure white. Over the 75% light main surface
    that composites to an almost solid white block with a conspicuous right edge. */
-.electron-light [class*="_ComposerLayoutRoot_"] {
+:is(.electron-light, html[data-theme="light"]) [class*="_ComposerLayoutRoot_"] {
   background-color: rgba(244, 247, 255, 0.12) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
@@ -295,11 +296,11 @@ aside nav {
 /* Codex adds solid surface-to-transparent fades behind and above the composer.
    In light mode their pure-white endpoint makes a hard vertical seam where the
    thread footer ends. The themed main surface already provides contrast. */
-.electron-light [data-thread-scroll-footer="true"] {
+:is(.electron-light, html[data-theme="light"]) [data-thread-scroll-footer="true"] {
   opacity: 1 !important;
 }
 
-.electron-light [data-thread-scroll-footer="true"] .bg-gradient-to-t {
+:is(.electron-light, html[data-theme="light"]) [data-thread-scroll-footer="true"] .bg-gradient-to-t {
   background-image: none !important;
 }
 
@@ -316,34 +317,34 @@ aside nav {
 
 /* Electron reserves a scrollbar gutter on both sides of the thread. The left
    gutter exposes a conspicuous wallpaper strip beside the navigation panel. */
-.electron-light .thread-scroll-container {
+:is(.electron-light, html[data-theme="light"]) .thread-scroll-container {
   scrollbar-gutter: auto !important;
   scrollbar-width: thin !important;
   scrollbar-color: transparent transparent !important;
 }
 
-.electron-light .thread-scroll-container::-webkit-scrollbar {
+:is(.electron-light, html[data-theme="light"]) .thread-scroll-container::-webkit-scrollbar {
   width: 3px !important;
   height: 3px !important;
 }
 
-.electron-light .thread-scroll-container::-webkit-scrollbar-track {
+:is(.electron-light, html[data-theme="light"]) .thread-scroll-container::-webkit-scrollbar-track {
   background: transparent !important;
 }
 
-.electron-light .thread-scroll-container::-webkit-scrollbar-thumb {
+:is(.electron-light, html[data-theme="light"]) .thread-scroll-container::-webkit-scrollbar-thumb {
   border: 0 !important;
   border-radius: 999px !important;
   background: transparent !important;
 }
 
-.electron-light .thread-scroll-container:hover::-webkit-scrollbar-thumb {
+:is(.electron-light, html[data-theme="light"]) .thread-scroll-container:hover::-webkit-scrollbar-thumb {
   background: rgba(74, 91, 126, 0.12) !important;
 }
 
 /* Feather the opacity jump between the 40% sidebar glass and the stronger main
    wash. This is a color-only transition: no blur is applied to the wallpaper. */
-.electron-light main[class*="_MainContentSurface_"]::before {
+:is(.electron-light, html[data-theme="light"]) main[class*="_MainContentSurface_"]::before {
   content: "" !important;
   position: absolute !important;
   inset: 0 auto 0 0 !important;
@@ -362,7 +363,7 @@ aside nav {
   -webkit-mask-image: none !important;
 }
 
-.electron-dark main[class*="_MainContentSurface_"]::before {
+:is(.electron-dark, html[data-theme="dark"]) main[class*="_MainContentSurface_"]::before {
   content: "" !important;
   position: absolute !important;
   inset: 0 auto 0 0 !important;
